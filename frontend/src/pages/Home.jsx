@@ -1,6 +1,6 @@
 const navItems = ['Home', 'Collections', 'Discover More', 'About Us'];
 
-function Home({ onLoginClick }) {
+function Home({ onLoginClick, onRegisterClick }) {
 	return (
 		<div className="page-shell">
 			<header className="topbar">
@@ -18,9 +18,9 @@ function Home({ onLoginClick }) {
 					<button className="button button-secondary" type="button" onClick={onLoginClick}>
 						Login
 					</button>
-					<a className="button button-primary" href="#register">
+					<button className="button button-primary" type="button" onClick={onRegisterClick}>
 						Register
-					</a>
+					</button>
 				</div>
 			</header>
 

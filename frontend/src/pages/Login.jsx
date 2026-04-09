@@ -1,11 +1,16 @@
-function Login({ onBack }) {
+function Login({ onBack, onRegisterClick }) {
 	return (
 		<div className="page-shell">
 			<header className="topbar">
 				<div className="brand">3D Product Viewer</div>
-				<button className="button button-secondary" type="button" onClick={onBack}>
-					Back to Home
-				</button>
+				<div className="auth-actions">
+					<button className="button button-secondary" type="button" onClick={onBack}>
+						Back to Home
+					</button>
+					<button className="button button-primary" type="button" onClick={onRegisterClick}>
+						Register
+					</button>
+				</div>
 			</header>
 
 			<main className="auth-main">
