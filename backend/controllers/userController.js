@@ -66,6 +66,52 @@ const registerUser = async (req, res) => {
 	}
 };
 
+const loginUser = (req, res) => {
+	const { email, password } = req.body;
+	const normalizedEmail = typeof email === 'string' ? email.trim().toLowerCase() : '';
+
+	if (!normalizedEmail || !password) {
+		return res.status(400).json({ message: 'Email and password are required.' });
+	}
+
+	db.get(
+		'SELECT id, username, email, password, phoneNumber FROM users WHERE email = ?',
+		[normalizedEmail],
+		async (selectError, user) => {
+			if (selectError) {
+				console.error('Failed to find user:', selectError.message);
+				return res.status(500).json({ message: 'Failed to login.' });
+			}
+
+			if (!user) {
+				return res.status(401).json({ message: 'Email is wrong.' });
+			}
+
+			try {
+				const isPasswordValid = await bcrypt.compare(password, user.password);
+
+				if (!isPasswordValid) {
+					return res.status(401).json({ message: 'Password is wrong.' });
+				}
+
+				return res.status(200).json({
+					message: 'Login successful.',
+					user: {
+						id: user.id,
+						username: user.username,
+						email: user.email,
+						phoneNumber: user.phoneNumber,
+					},
+				});
+			} catch (error) {
+				console.error('Failed to verify password:', error.message);
+				return res.status(500).json({ message: 'Failed to login.' });
+			}
+		}
+	);
+};
+
 module.exports = {
 	registerUser,
+	loginUser,
 };
