@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -8,8 +10,8 @@ html {
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f7f7f4;
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at 10% 10%, #f5f4f0 0%, #f8f8f6 45%, #f2f1ec 100%);
   color: #111111;
 }
 
@@ -35,6 +37,7 @@ a {
 }
 
 .brand {
+  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -88,10 +91,23 @@ a {
 }
 
 .hero {
-  max-width: 720px;
-  margin: 0 auto;
+  width: 100%;
   padding: 96px 0 48px;
   text-align: center;
+}
+
+.home-sections {
+  display: grid;
+  gap: 22px;
+  padding-bottom: 24px;
+}
+
+.section-panel {
+  min-height: calc(100vh - 126px);
+  border: 1px solid #d8d8d1;
+  border-radius: 22px;
+  background: #ffffff;
+  scroll-margin-top: 18px;
 }
 
 .eyebrow {
@@ -105,6 +121,7 @@ a {
 
 .hero h1 {
   margin: 0;
+  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
   font-size: clamp(2.4rem, 5vw, 4.8rem);
   line-height: 1.02;
 }
@@ -115,6 +132,111 @@ a {
   font-size: 1.05rem;
   line-height: 1.7;
   color: #4d4d4d;
+}
+
+.section-heading-wrap {
+  max-width: 700px;
+}
+
+.section-heading-wrap h2 {
+  margin: 0;
+  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.1;
+}
+
+.section-works {
+  display: grid;
+  gap: 24px;
+  align-content: center;
+  padding: 52px;
+}
+
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.workflow-card {
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid #d7d7cf;
+  background: linear-gradient(160deg, #fefefe 0%, #f2f1eb 100%);
+}
+
+.workflow-index {
+  margin: 0;
+  font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #2f2f2f;
+}
+
+.workflow-card h3 {
+  margin: 8px 0 6px;
+  font-size: 1.15rem;
+}
+
+.workflow-card p {
+  margin: 0;
+  color: #424242;
+  line-height: 1.55;
+}
+
+.section-showcase {
+  display: grid;
+  gap: 26px;
+  align-content: center;
+  padding: 52px;
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.product-tile {
+  border: 1px solid #d6d6ce;
+  border-radius: 20px;
+  background: #fbfbf9;
+  padding: 18px;
+}
+
+.model-swatch {
+  height: 160px;
+  border-radius: 14px;
+  border: 1px solid #d0d0c8;
+}
+
+.swatch-red {
+  background: linear-gradient(135deg, #f3e2d7 0%, #e4a97f 100%);
+}
+
+.swatch-amber {
+  background: linear-gradient(135deg, #f0e9d7 0%, #cfb37d 100%);
+}
+
+.swatch-blue {
+  background: linear-gradient(135deg, #dfe8f8 0%, #7aa2dc 100%);
+}
+
+.swatch-green {
+  background: linear-gradient(135deg, #e0f0e6 0%, #87bf9a 100%);
+}
+
+.product-tag {
+  margin: 12px 0 6px;
+  font-size: 0.82rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #616161;
+}
+
+.product-tile h3 {
+  margin: 0;
+  font-size: 1.15rem;
 }
 
 .auth-main {
@@ -193,6 +315,23 @@ a {
     padding-top: 72px;
   }
 
+  .section-panel {
+    min-height: auto;
+  }
+
+  .section-works,
+  .section-showcase {
+    padding: 28px;
+  }
+
+  .workflow-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .showcase-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .auth-card {
     padding: 20px;
   }
@@ -217,5 +356,17 @@ a {
 
   .button {
     flex: 1;
+  }
+
+  .home-sections {
+    gap: 16px;
+  }
+
+  .showcase-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .model-swatch {
+    height: 130px;
   }
 }
