@@ -19,7 +19,7 @@ const products = [
 
 function Home({ onLoginClick, onRegisterClick }) {
 	return (
-		<div className="page-shell">
+		<div className="page-shell home-page">
 			<header className="topbar">
 				<div className="brand">3D Product Viewer</div>
 
@@ -49,6 +49,13 @@ function Home({ onLoginClick, onRegisterClick }) {
 						This viewer gives a clear starting point for exploring products in 3D with a
 						lightweight interface and easy navigation.
 					</p>
+
+					<div className="hero-3d-stage" role="img" aria-label="3D background preview">
+						<div className="hero-3d-frame">
+							<img className="hero-3d-image hero-3d-base" src="/bg.png" alt="3D product artwork" />
+						</div>
+						<img className="hero-3d-image hero-3d-pop" src="/bg.png" alt="" aria-hidden="true" />
+					</div>
 				</section>
 
 				<section className="section-panel section-works" id="how-it-works">
