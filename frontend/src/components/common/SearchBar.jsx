@@ -22,39 +22,85 @@ const SearchBar = ({ onSearch, onCategoryFilter }) => {
 	};
 
 	return (
-		<div className="w-full bg-gray-900 border-b border-gray-700 sticky top-0 z-40">
+		<div style={{ width: '100%', margin: '24px 0' }}>
 			{/* Search Bar */}
-			<div className="px-6 py-4">
-				<div className="flex gap-3 items-center">
-					<div className="flex-1 flex items-center bg-gray-800 rounded-full px-4 py-2 border border-gray-700 hover:border-blue-500 transition-colors">
-						<span className="text-gray-400">🔍</span>
-						<input
-							type="text"
-							placeholder="Search 3D products..."
-							value={searchQuery}
-							onChange={(e) => setSearchQuery(e.target.value)}
-							onKeyPress={handleKeyPress}
-							className="w-full bg-transparent text-white placeholder-gray-500 outline-none ml-2"
-						/>
-					</div>
-					<button
-						onClick={handleSearch}
-						className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-semibold transition-all duration-200"
-					>
-						Search
-					</button>
+			<div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '16px' }}>
+				<div
+					style={{
+						flex: 1,
+						display: 'flex',
+						alignItems: 'center',
+						background: 'rgba(10, 16, 48, 0.6)',
+						borderRadius: '12px',
+						padding: '12px 16px',
+						border: '1px solid rgba(132, 165, 255, 0.3)',
+						backdropFilter: 'blur(10px)',
+					}}
+				>
+					<span style={{ color: '#6a8eff', marginRight: '8px' }}>🔍</span>
+					<input
+						type="text"
+						placeholder="Search 3D products..."
+						value={searchQuery}
+						onChange={(e) => setSearchQuery(e.target.value)}
+						onKeyPress={handleKeyPress}
+						style={{
+							width: '100%',
+							background: 'transparent',
+							color: '#f4f8ff',
+							border: 'none',
+							outline: 'none',
+							fontSize: '0.95rem',
+							fontFamily: 'inherit',
+						}}
+					/>
 				</div>
+				<button
+					onClick={handleSearch}
+					className="button button-primary"
+					style={{
+						background: 'linear-gradient(120deg, #2ce1ff 0%, #6a8eff 100%)',
+						color: '#051124',
+						fontWeight: '600',
+					}}
+				>
+					Search
+				</button>
 			</div>
 
 			{/* Category Filter */}
-			<div className="px-6 pb-4 flex gap-2 overflow-x-auto scrollbar-hide">
+			<div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px' }}>
 				<button
 					onClick={() => handleCategoryChange('')}
-					className={`px-4 py-1 rounded-full whitespace-nowrap font-medium transition-all duration-200 ${
-						selectedCategory === ''
-							? 'bg-blue-600 text-white'
-							: 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-					}`}
+					className="workflow-card"
+					style={{
+						padding: '8px 16px',
+						borderRadius: '999px',
+						whiteSpace: 'nowrap',
+						cursor: 'pointer',
+						background:
+							selectedCategory === ''
+								? 'linear-gradient(120deg, rgba(44, 225, 255, 0.2) 0%, rgba(106, 142, 255, 0.2) 100%)'
+								: 'rgba(10, 16, 48, 0.6)',
+						border:
+							selectedCategory === ''
+								? '1px solid rgba(44, 225, 255, 0.6)'
+								: '1px solid rgba(132, 165, 255, 0.3)',
+						color:
+							selectedCategory === ''
+								? '#2ce1ff'
+								: '#b6c4f5',
+						fontWeight: '600',
+						transition: 'all 0.2s ease',
+					}}
+					onMouseEnter={(e) => {
+						if (selectedCategory === '') {
+							e.target.style.boxShadow = '0 0 16px rgba(44, 225, 255, 0.3)';
+						}
+					}}
+					onMouseLeave={(e) => {
+						e.target.style.boxShadow = 'none';
+					}}
 				>
 					All
 				</button>
@@ -62,11 +108,35 @@ const SearchBar = ({ onSearch, onCategoryFilter }) => {
 					<button
 						key={category}
 						onClick={() => handleCategoryChange(category)}
-						className={`px-4 py-1 rounded-full whitespace-nowrap font-medium transition-all duration-200 ${
-							selectedCategory === category
-								? 'bg-blue-600 text-white'
-								: 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-						}`}
+						className="workflow-card"
+						style={{
+							padding: '8px 16px',
+							borderRadius: '999px',
+							whiteSpace: 'nowrap',
+							cursor: 'pointer',
+							background:
+								selectedCategory === category
+									? 'linear-gradient(120deg, rgba(44, 225, 255, 0.2) 0%, rgba(106, 142, 255, 0.2) 100%)'
+									: 'rgba(10, 16, 48, 0.6)',
+							border:
+								selectedCategory === category
+									? '1px solid rgba(44, 225, 255, 0.6)'
+									: '1px solid rgba(132, 165, 255, 0.3)',
+							color:
+								selectedCategory === category
+									? '#2ce1ff'
+									: '#b6c4f5',
+							fontWeight: '600',
+							transition: 'all 0.2s ease',
+						}}
+						onMouseEnter={(e) => {
+							if (selectedCategory !== category) {
+								e.target.style.transform = 'translateY(-2px)';
+							}
+						}}
+						onMouseLeave={(e) => {
+							e.target.style.transform = 'translateY(0)';
+						}}
 					>
 						{category}
 					</button>
