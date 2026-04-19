@@ -126,83 +126,151 @@ function Dashboard({ user, onLogout }) {
 	};
 
 	return (
-		<div className="min-h-screen bg-gray-950 text-white">
+		<div className="page-shell home-page">
 			{/* Header/Navbar */}
-			<header className="bg-gray-900 border-b border-gray-800 sticky top-0 z-50 shadow-lg">
-				<div className="px-6 py-4 flex items-center justify-between">
-					<div className="flex items-center gap-3">
-						<div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-xl font-bold">
-							3D
-						</div>
-						<h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-							3D Viewer
-						</h1>
-					</div>
+			<header className="topbar">
+				<div className="brand">3D Product Viewer</div>
 
-					<div className="flex items-center gap-4">
-						<span className="text-gray-400 text-sm">
-							Welcome, <span className="text-blue-400 font-semibold">{user?.username}</span>
-						</span>
-						<button
-							onClick={onLogout}
-							className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200"
-						>
-							Logout
-						</button>
-					</div>
+				<nav className="nav" aria-label="Dashboard Navigation">
+					<a className="nav-link" href="#dashboard">Dashboard</a>
+					<a className="nav-link" href="#products">Products</a>
+					<a className="nav-link" href="#explore">Explore</a>
+				</nav>
+
+				<div className="auth-actions">
+					<span className="eyebrow" style={{ margin: 0, color: '#b6c4f5' }}>
+						Welcome, <span style={{ color: '#2ce1ff' }}>{user?.username}</span>
+					</span>
+					<button
+						onClick={onLogout}
+						className="button button-secondary"
+						style={{ borderColor: 'rgba(142, 180, 255, 0.55)', color: '#f4f8ff' }}
+					>
+						Logout
+					</button>
 				</div>
 			</header>
 
-			{/* Search and Filter Bar */}
-			<SearchBar onSearch={handleSearch} onCategoryFilter={handleCategoryFilter} />
-
 			{/* Main Content */}
-			<main className="px-6 py-8">
-				{/* Add Sample Data Button (only show if no products) */}
-				{products.length === 0 && (
-					<div className="mb-8 text-center">
-						<p className="text-gray-400 mb-4">No products yet. Add sample data to get started!</p>
-						<button
-							onClick={handleSampleData}
-							className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200"
-						>
-							Load Sample Products
-						</button>
-					</div>
-				)}
+			<main className="home-sections">
+				{/* Hero Section */}
+				<section className="hero section-panel" id="dashboard">
+					<p className="eyebrow">Welcome back</p>
+					<h1>Explore Your 3D Collection</h1>
+					<p className="hero-copy">
+						Discover, search, and interact with stunning 3D models. Browse through our curated
+						collection of products across multiple categories.
+					</p>
 
-				{/* Loading State */}
-				{loading && (
-					<div className="flex justify-center items-center py-20">
-						<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+					<div className="hero-3d-stage" role="img" aria-label="3D product collection preview">
+						<div className="hero-3d-frame">
+							<img className="hero-3d-image hero-3d-base" src="/bg.png" alt="3D product artwork" />
+						</div>
+						<img className="hero-3d-image hero-3d-pop" src="/bg.png" alt="" aria-hidden="true" />
 					</div>
+				</section>
+
+				{/* Search Section */}
+				<section className="section-panel section-works" id="products">
+					<div className="section-heading-wrap">
+						<p className="eyebrow">Find & Discover</p>
+						<h2>Search and filter 3D products</h2>
+					</div>
+					
+					<SearchBar onSearch={handleSearch} onCategoryFilter={handleCategoryFilter} />
+
+					{/* Add Sample Data Button */}
+					{products.length === 0 && (
+						<div style={{ textAlign: 'center', marginTop: '24px' }}>
+							<p className="hero-copy" style={{ color: '#b6c4f5' }}>
+								No products yet. Load sample data to get started!
+							</p>
+							<button
+								onClick={handleSampleData}
+								className="button button-primary"
+								style={{
+									background: 'linear-gradient(120deg, #2ce1ff 0%, #6a8eff 100%)',
+									color: '#051124',
+									marginTop: '12px',
+								}}
+							>
+								Load Sample Products
+							</button>
+						</div>
+					)}
+				</section>
+
+				{/* Products Grid Section */}
+				{!loading && filteredProducts.length > 0 && (
+					<section className="section-panel section-showcase" id="explore">
+						<div className="section-heading-wrap">
+							<p className="eyebrow">{searchActive ? 'Search Results' : '3D Products'}</p>
+							<h2>{searchActive ? `Found ${filteredProducts.length} products` : 'Featured 3D Collection'}</h2>
+						</div>
+
+						{/* Loading State */}
+						{loading && (
+							<div style={{ textAlign: 'center', padding: '40px' }}>
+								<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500" style={{ margin: '0 auto' }}></div>
+							</div>
+						)}
+
+						{/* Products Grid */}
+						<div className="showcase-grid">
+							{filteredProducts.map((product) => (
+								<article
+									key={product.id}
+									className="product-tile"
+									onClick={() => handleProductClick(product.id)}
+									style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
+									onMouseEnter={(e) => {
+										e.currentTarget.style.transform = 'translateY(-4px)';
+										e.currentTarget.style.boxShadow = '0 12px 24px rgba(44, 225, 255, 0.2)';
+									}}
+									onMouseLeave={(e) => {
+										e.currentTarget.style.transform = 'translateY(0)';
+										e.currentTarget.style.boxShadow = 'none';
+									}}
+								>
+									<div
+										style={{
+											width: '100%',
+											height: '200px',
+											borderRadius: '12px',
+											marginBottom: '12px',
+											overflow: 'hidden',
+											border: '1px solid rgba(132, 165, 255, 0.3)',
+										}}
+									>
+										<img
+											src={product.imageUrl || 'https://via.placeholder.com/320x180?text=3D+Product'}
+											alt={product.name}
+											style={{
+												width: '100%',
+												height: '100%',
+												objectFit: 'cover',
+											}}
+										/>
+									</div>
+									<p className="product-tag">{product.category}</p>
+									<h3>{product.name}</h3>
+									<p style={{ color: '#b6c4f5', fontSize: '0.9rem', margin: '6px 0 0' }}>
+										${product.price?.toFixed(2)} • {product.views || 0} views
+									</p>
+								</article>
+							))}
+						</div>
+					</section>
 				)}
 
 				{/* No Results State */}
-				{!loading && filteredProducts.length === 0 && (
-					<div className="text-center py-20">
-						<p className="text-gray-400 text-lg">
-							{searchActive ? 'No products found. Try a different search.' : 'No products available.'}
-						</p>
-					</div>
-				)}
-
-				{/* Products Grid */}
-				{!loading && filteredProducts.length > 0 && (
-					<div>
-						<h2 className="text-3xl font-bold mb-6">
-							{searchActive ? 'Search Results' : 'Featured 3D Products'}
-						</h2>
-						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-							{filteredProducts.map((product) => (
-								<ProductCard
-									key={product.id}
-									product={product}
-									onProductClick={handleProductClick}
-								/>
-							))}
+				{!loading && filteredProducts.length === 0 && products.length > 0 && (
+					<section className="section-panel section-showcase" id="explore">
+						<div style={{ textAlign: 'center', padding: '80px 20px' }}>
+							<h2 style={{ color: '#f6f8ff', marginBottom: '12px' }}>No products found</h2>
+							<p className="hero-copy">Try a different search or adjust your filters</p>
 						</div>
-					</div>
+					</section>
 				)}
 			</main>
 		</div>
