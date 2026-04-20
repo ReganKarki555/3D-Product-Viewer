@@ -1,3 +1,5 @@
+import ProductScene from '../components/3D/ProductScene';
+
 const navItems = [
 	{ label: 'Home', href: '#home' },
 	{ label: 'How It Works', href: '#how-it-works' },
@@ -11,7 +13,7 @@ const workflowSteps = [
 ];
 
 const products = [
-	{ name: 'Cars', tag: 'Auto Collection', color: 'swatch-red' },
+	{ name: 'Nike Shoes', tag: 'Athletic Footwear', color: 'swatch-blue', imageUrl: '/nike.png' },
 	{ name: 'House', tag: 'Architecture', color: 'swatch-amber' },
 	{ name: 'Earth', tag: 'Planet Model', color: 'swatch-blue' },
 	{ name: 'Furniture', tag: 'Interior Setup', color: 'swatch-green' }
@@ -80,11 +82,34 @@ function Home({ onLoginClick, onRegisterClick }) {
 						<h2>Available product categories to preview in 3D</h2>
 					</div>
 					<div className="showcase-grid">
-						{products.map((product) => (
+						{products.map((product, index) => (
 							<article key={product.name} className="product-tile">
-								<div className={`model-swatch ${product.color}`} aria-hidden="true" />
-								<p className="product-tag">{product.tag}</p>
-								<h3>{product.name}</h3>
+								{index === 0 && product.imageUrl ? (
+									<ProductScene
+										src={product.imageUrl}
+										alt={product.name}
+										title={product.name}
+										subtitle="Move your mouse to tilt the shoe and reveal a stronger 3D illusion."
+										badge={product.tag}
+									/>
+								) : product.imageUrl ? (
+									<div className="product-tile-media product-tile-media--image">
+										<img className="product-tile-image" src={product.imageUrl} alt={product.name} />
+										<div className="product-tile-media-overlay">
+											<span>View 3D</span>
+											<span>Drag / Inspect</span>
+										</div>
+									</div>
+								) : (
+									<div className={`product-tile-media product-tile-media--swatch model-swatch ${product.color}`} aria-hidden="true" />
+								)}
+								{index !== 0 && <p className="product-tag">{product.tag}</p>}
+								{index !== 0 && (
+									<div className="product-tile-copy">
+										<h3>{product.name}</h3>
+										<p>Hover to preview the collection with a lifted, glassy motion.</p>
+									</div>
+								)}
 							</article>
 						))}
 					</div>
