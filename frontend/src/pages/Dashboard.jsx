@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { productService } from '../services/productService';
-import ProductCard from '../components/common/ProductCard';
 import SearchBar from '../components/common/SearchBar';
 
 function Dashboard({ user, onLogout }) {
@@ -47,6 +46,14 @@ function Dashboard({ user, onLogout }) {
 	const handleProductClick = (productId) => {
 		setSelectedProduct(productId);
 	};
+
+	const handleCloseProductDetails = () => {
+		setSelectedProduct(null);
+	};
+
+	const selectedProductData =
+		filteredProducts.find((product) => product.id === selectedProduct) ||
+		products.find((product) => product.id === selectedProduct);
 
 	const handleSampleData = async () => {
 		const sampleProducts = [
@@ -267,12 +274,105 @@ function Dashboard({ user, onLogout }) {
 				{!loading && filteredProducts.length === 0 && products.length > 0 && (
 					<section className="section-panel section-showcase" id="explore">
 						<div style={{ textAlign: 'center', padding: '80px 20px' }}>
-							<h2 style={{ color: '#f6f8ff', marginBottom: '12px' }}>No products found</h2>
+							<h2 style={{ color: '#0f172a', marginBottom: '12px' }}>No products found</h2>
 							<p className="hero-copy">Try a different search or adjust your filters</p>
 						</div>
 					</section>
 				)}
 			</main>
+
+			{selectedProductData && (
+				<div
+					role="dialog"
+					aria-modal="true"
+					aria-labelledby="product-details-title"
+					onClick={handleCloseProductDetails}
+					style={{
+						position: 'fixed',
+						inset: 0,
+						background: 'rgba(15, 23, 42, 0.32)',
+						display: 'grid',
+						placeItems: 'center',
+						padding: '20px',
+						zIndex: 50,
+					}}
+				>
+					<div
+						onClick={(event) => event.stopPropagation()}
+						style={{
+							width: 'min(760px, 100%)',
+							maxHeight: '90vh',
+							overflowY: 'auto',
+							borderRadius: '18px',
+							border: '1px solid #dbe4f0',
+							background: '#ffffff',
+							boxShadow: '0 24px 60px rgba(15, 23, 42, 0.2)',
+							padding: '22px',
+						}}
+					>
+						<div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', alignItems: 'start' }}>
+							<div>
+								<p className="product-tag" style={{ marginTop: 0 }}>{selectedProductData.category}</p>
+								<h2 id="product-details-title" style={{ margin: '0 0 6px', color: '#0f172a' }}>
+									{selectedProductData.name}
+								</h2>
+								<p style={{ margin: 0, color: '#64748b', fontSize: '0.95rem' }}>
+									${selectedProductData.price?.toFixed(2)} • {selectedProductData.views || 0} views
+								</p>
+							</div>
+							<button
+								type="button"
+								onClick={handleCloseProductDetails}
+								className="button button-secondary"
+								style={{ minWidth: 'auto', padding: '8px 12px' }}
+							>
+								Close
+							</button>
+						</div>
+
+						<div
+							style={{
+								marginTop: '16px',
+								borderRadius: '14px',
+								overflow: 'hidden',
+								border: '1px solid #dbe4f0',
+								height: '280px',
+							}}
+						>
+							<img
+								src={selectedProductData.imageUrl || 'https://via.placeholder.com/640x360?text=3D+Product'}
+								alt={selectedProductData.name}
+								style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+							/>
+						</div>
+
+						<div style={{ marginTop: '16px', color: '#334155', lineHeight: 1.7 }}>
+							<p style={{ margin: '0 0 10px' }}>{selectedProductData.description}</p>
+							{selectedProductData.name === 'Premium Gaming Headset' && (
+								<div
+									style={{
+										border: '1px solid #dbe4f0',
+										borderRadius: '12px',
+										background: '#f8fafc',
+										padding: '14px',
+									}}
+								>
+									<h3 style={{ margin: '0 0 8px', color: '#0f172a', fontSize: '1rem' }}>Detailed Info</h3>
+									<p style={{ margin: '0 0 8px' }}>
+										Premium Gaming Headset is crafted for immersive gameplay with accurate positional
+										audio and premium build details in this 3D model.
+									</p>
+									<ul style={{ margin: 0, paddingLeft: '18px' }}>
+										<li>Studio-grade over-ear design with cushioned headband.</li>
+										<li>Noise-isolating ear cups and detailed surface textures.</li>
+										<li>Ideal for product demos, gaming mockups, and catalog previews.</li>
+									</ul>
+								</div>
+							)}
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }
