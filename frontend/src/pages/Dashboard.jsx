@@ -138,13 +138,13 @@ function Dashboard({ user, onLogout }) {
 				</nav>
 
 				<div className="auth-actions">
-					<span className="eyebrow" style={{ margin: 0, color: '#b6c4f5' }}>
-						Welcome, <span style={{ color: '#2ce1ff' }}>{user?.username}</span>
+					<span className="eyebrow" style={{ margin: 0, color: '#64748b' }}>
+						Welcome, <span style={{ color: '#2563eb' }}>{user?.username}</span>
 					</span>
 					<button
 						onClick={onLogout}
 						className="button button-secondary"
-						style={{ borderColor: 'rgba(142, 180, 255, 0.55)', color: '#f4f8ff' }}
+						style={{ borderColor: '#dbe4f0', color: '#0f172a' }}
 					>
 						Logout
 					</button>
@@ -182,15 +182,15 @@ function Dashboard({ user, onLogout }) {
 					{/* Add Sample Data Button */}
 					{products.length === 0 && (
 						<div style={{ textAlign: 'center', marginTop: '24px' }}>
-							<p className="hero-copy" style={{ color: '#b6c4f5' }}>
+							<p className="hero-copy" style={{ color: '#64748b' }}>
 								No products yet. Load sample data to get started!
 							</p>
 							<button
 								onClick={handleSampleData}
 								className="button button-primary"
 								style={{
-									background: 'linear-gradient(120deg, #2ce1ff 0%, #6a8eff 100%)',
-									color: '#051124',
+									background: 'linear-gradient(120deg, #2563eb 0%, #0ea5e9 100%)',
+									color: '#ffffff',
 									marginTop: '12px',
 								}}
 							>
@@ -239,7 +239,7 @@ function Dashboard({ user, onLogout }) {
 											borderRadius: '12px',
 											marginBottom: '12px',
 											overflow: 'hidden',
-											border: '1px solid rgba(132, 165, 255, 0.3)',
+													border: '1px solid rgba(148, 163, 184, 0.35)',
 										}}
 									>
 										<img
@@ -254,7 +254,7 @@ function Dashboard({ user, onLogout }) {
 									</div>
 									<p className="product-tag">{product.category}</p>
 									<h3>{product.name}</h3>
-									<p style={{ color: '#b6c4f5', fontSize: '0.9rem', margin: '6px 0 0' }}>
+									<p style={{ color: '#64748b', fontSize: '0.9rem', margin: '6px 0 0' }}>
 										${product.price?.toFixed(2)} • {product.views || 0} views
 									</p>
 								</article>

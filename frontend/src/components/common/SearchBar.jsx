@@ -30,14 +30,15 @@ const SearchBar = ({ onSearch, onCategoryFilter }) => {
 						flex: 1,
 						display: 'flex',
 						alignItems: 'center',
-						background: 'rgba(10, 16, 48, 0.6)',
+						background: 'rgba(255, 255, 255, 0.9)',
 						borderRadius: '12px',
 						padding: '12px 16px',
-						border: '1px solid rgba(132, 165, 255, 0.3)',
+						border: '1px solid rgba(148, 163, 184, 0.35)',
+						boxShadow: '0 10px 24px rgba(15, 23, 42, 0.04)',
 						backdropFilter: 'blur(10px)',
 					}}
 				>
-					<span style={{ color: '#6a8eff', marginRight: '8px' }}>🔍</span>
+					<span style={{ color: '#2563eb', marginRight: '8px' }}>🔍</span>
 					<input
 						type="text"
 						placeholder="Search 3D products..."
@@ -47,7 +48,7 @@ const SearchBar = ({ onSearch, onCategoryFilter }) => {
 						style={{
 							width: '100%',
 							background: 'transparent',
-							color: '#f4f8ff',
+							color: '#0f172a',
 							border: 'none',
 							outline: 'none',
 							fontSize: '0.95rem',
@@ -59,8 +60,8 @@ const SearchBar = ({ onSearch, onCategoryFilter }) => {
 					onClick={handleSearch}
 					className="button button-primary"
 					style={{
-						background: 'linear-gradient(120deg, #2ce1ff 0%, #6a8eff 100%)',
-						color: '#051124',
+						background: 'linear-gradient(120deg, #2563eb 0%, #0ea5e9 100%)',
+						color: '#ffffff',
 						fontWeight: '600',
 					}}
 				>
@@ -80,22 +81,22 @@ const SearchBar = ({ onSearch, onCategoryFilter }) => {
 						cursor: 'pointer',
 						background:
 							selectedCategory === ''
-								? 'linear-gradient(120deg, rgba(44, 225, 255, 0.2) 0%, rgba(106, 142, 255, 0.2) 100%)'
-								: 'rgba(10, 16, 48, 0.6)',
+								? 'linear-gradient(120deg, rgba(37, 99, 235, 0.12) 0%, rgba(14, 165, 233, 0.12) 100%)'
+								: 'rgba(255, 255, 255, 0.92)',
 						border:
 							selectedCategory === ''
-								? '1px solid rgba(44, 225, 255, 0.6)'
-								: '1px solid rgba(132, 165, 255, 0.3)',
+								? '1px solid rgba(37, 99, 235, 0.35)'
+								: '1px solid rgba(148, 163, 184, 0.35)',
 						color:
 							selectedCategory === ''
-								? '#2ce1ff'
-								: '#b6c4f5',
+								? '#2563eb'
+								: '#334155',
 						fontWeight: '600',
 						transition: 'all 0.2s ease',
 					}}
 					onMouseEnter={(e) => {
 						if (selectedCategory === '') {
-							e.target.style.boxShadow = '0 0 16px rgba(44, 225, 255, 0.3)';
+							e.target.style.boxShadow = '0 0 16px rgba(37, 99, 235, 0.18)';
 						}
 					}}
 					onMouseLeave={(e) => {
@@ -116,16 +117,16 @@ const SearchBar = ({ onSearch, onCategoryFilter }) => {
 							cursor: 'pointer',
 							background:
 								selectedCategory === category
-									? 'linear-gradient(120deg, rgba(44, 225, 255, 0.2) 0%, rgba(106, 142, 255, 0.2) 100%)'
-									: 'rgba(10, 16, 48, 0.6)',
+									? 'linear-gradient(120deg, rgba(37, 99, 235, 0.12) 0%, rgba(14, 165, 233, 0.12) 100%)'
+									: 'rgba(255, 255, 255, 0.92)',
 							border:
 								selectedCategory === category
-									? '1px solid rgba(44, 225, 255, 0.6)'
-									: '1px solid rgba(132, 165, 255, 0.3)',
+									? '1px solid rgba(37, 99, 235, 0.35)'
+									: '1px solid rgba(148, 163, 184, 0.35)',
 							color:
 								selectedCategory === category
-									? '#2ce1ff'
-									: '#b6c4f5',
+									? '#2563eb'
+									: '#334155',
 							fontWeight: '600',
 							transition: 'all 0.2s ease',
 						}}
