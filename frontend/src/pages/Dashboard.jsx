@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { productService } from '../services/productService';
 import SearchBar from '../components/common/SearchBar';
+import ProductScene from '../components/3D/ProductScene';
 
 function Dashboard({ user, onLogout }) {
 	const [products, setProducts] = useState([]);
@@ -58,12 +59,12 @@ function Dashboard({ user, onLogout }) {
 	const handleSampleData = async () => {
 		const sampleProducts = [
 			{
-				name: 'Premium Gaming Headset',
-				description: 'High-quality 3D model of a professional gaming headset with detailed textures',
-				category: 'Electronics',
-				imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=320&h=180&fit=crop',
-				modelUrl: 'model1.glb',
-				price: 99.99,
+				name: 'Nike Shoes',
+				description: 'Stylish Nike sneaker card with a clean 3D presentation and premium streetwear look',
+				category: 'Fashion',
+				imageUrl: '/nike.png',
+				modelUrl: 'nike-shoes.glb',
+				price: 149.99,
 			},
 			{
 				name: 'Modern Office Chair',
@@ -224,46 +225,42 @@ function Dashboard({ user, onLogout }) {
 
 						{/* Products Grid */}
 						<div className="showcase-grid">
-							{filteredProducts.map((product) => (
+							{filteredProducts.map((product, index) => (
 								<article
 									key={product.id}
 									className="product-tile"
 									onClick={() => handleProductClick(product.id)}
-									style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
-									onMouseEnter={(e) => {
-										e.currentTarget.style.transform = 'translateY(-4px)';
-										e.currentTarget.style.boxShadow = '0 12px 24px rgba(44, 225, 255, 0.2)';
-									}}
-									onMouseLeave={(e) => {
-										e.currentTarget.style.transform = 'translateY(0)';
-										e.currentTarget.style.boxShadow = 'none';
-									}}
 								>
-									<div
-										style={{
-											width: '100%',
-											height: '200px',
-											borderRadius: '12px',
-											marginBottom: '12px',
-											overflow: 'hidden',
-													border: '1px solid rgba(148, 163, 184, 0.35)',
-										}}
-									>
-										<img
-											src={product.imageUrl || 'https://via.placeholder.com/320x180?text=3D+Product'}
+									{index === 0 && product.imageUrl ? (
+										<ProductScene
+											src={product.imageUrl}
 											alt={product.name}
-											style={{
-												width: '100%',
-												height: '100%',
-												objectFit: 'cover',
-											}}
+											title={product.name}
+											subtitle="Move your mouse to tilt the shoe and reveal a stronger 3D illusion."
+											badge={product.category}
 										/>
-									</div>
+									) : (
+										<div className="product-tile-media product-tile-media--image">
+											<img
+												src={product.imageUrl || 'https://via.placeholder.com/320x180?text=3D+Product'}
+												alt={product.name}
+												className="product-tile-image"
+											/>
+											<div className="product-tile-media-overlay">
+												<span>View 3D</span>
+												<span>Drag / Inspect</span>
+											</div>
+										</div>
+									)}
 									<p className="product-tag">{product.category}</p>
-									<h3>{product.name}</h3>
-									<p style={{ color: '#64748b', fontSize: '0.9rem', margin: '6px 0 0' }}>
-										${product.price?.toFixed(2)} • {product.views || 0} views
-									</p>
+									{index !== 0 && (
+										<div className="product-tile-copy">
+											<h3>{product.name}</h3>
+											<p>
+												${product.price?.toFixed(2)} • {product.views || 0} views
+											</p>
+										</div>
+									)}
 								</article>
 							))}
 						</div>
